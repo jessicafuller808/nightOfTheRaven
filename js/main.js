@@ -35,12 +35,12 @@ class Example extends Phaser.Scene
     {
 
       //creates background image
-      let bg = this.add.image(400, 300, 'background');
+      this.bg = this.add.image(400, 300, 'background');
 
       //creates audio, plays, and loops it
-      let backgroundMusic = this.sound.add('darkFog');
-      backgroundMusic.loop = true;
-      backgroundMusic.play();
+      this.backgroundMusic = this.sound.add('darkFog');
+      this.backgroundMusic.loop = true;
+      this.backgroundMusic.play();
 
       //creates raven flight animation
       this.anims.create({
@@ -75,9 +75,9 @@ class Example extends Phaser.Scene
           repeat: -1
       });
 
-      //creates reaper idle animation
+      //creates reaper attack animation
       this.anims.create({
-        key: 'reap',
+        key: 'reapAttack',
         frames: [
             { key: 'reaper1' },
             { key: 'reaper2' },
@@ -88,17 +88,41 @@ class Example extends Phaser.Scene
       repeat: -1
         });
 
-        //adds Raven to scene, sets the size, and applies the fly animation
-        let player = this.add.sprite(100, 50, 'raven1')
+        //creates reaper idle animation
+      this.anims.create({
+        key: 'reapIdle',
+        frames: [
+            { key: 'reaper1' },
+            { key: 'reaper2', duration: 50 }
+      ],
+      frameRate: 4,
+      repeat: -1
+        });
+
+        //adds Raven to scene, sets size, and applies the fly animation
+        this.player = this.add.sprite(100, 50, 'raven1')
         .setScale(.15)
         .play('fly');
 
-        //adds Reaper to scene, sets the size, and applies the reap animation
-        let enemy1 = this.add.sprite(400, 500, 'reaper1')
-        .setScale(.40)
-        .play('reap');
+        //adds Reaper to scene and sets position.
+        this.reaper = this.add.sprite(600, 400, 'reaper1');
 
+        //Flips Reaper's axis to face left side of screen
+        this.reaper.flipX = true;
 
+        //Sets Reaper size
+        this.reaper.setScale(.40);
+
+        //Runs the reapIdle animation on Reaper
+        this.reaper.play('reapIdle');
+
+        //Puts Reaper at an angle to face player
+        this.reaper.angle = 40;
+    }
+
+    update() {
+        //Makes Reaper slowly creep toward left side of screen
+        this.reaper.x += -(0.1);
     }
  
 }
