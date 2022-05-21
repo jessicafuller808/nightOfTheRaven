@@ -22,6 +22,13 @@ class Example extends Phaser.Scene
         for (let i = 1; i < 25; i++) {
             this.load.image(`raven${i}`, `raven${i}.png`);
         }
+
+        //Loops through and loads 3 different pngs from animations dir to create reaper animation
+        for (let i = 1; i < 3; i++) {
+            this.load.image(`reaper${i}`, `reaper${i}.png`);
+        }
+
+
     }
 
     create ()
@@ -68,14 +75,34 @@ class Example extends Phaser.Scene
           repeat: -1
       });
 
-      //adds Raven to scene, sets the size, and applies the fly animation
-      let player = this.add.sprite(100, 50, 'raven1')
+      //creates reaper idle animation
+      this.anims.create({
+        key: 'reap',
+        frames: [
+            { key: 'reaper1' },
+            { key: 'reaper2' },
+            { key: 'reaper3', duration: 50 }
+      ],
+      frameRate: 10,
+      repeat: -1
+        });
+
+        //adds Raven to scene, sets the size, and applies the fly animation
+        let player = this.add.sprite(100, 50, 'raven1')
         .setScale(.15)
         .play('fly');
-    }
 
+        //adds Reaper to scene, sets the size, and applies the reap animation
+        let enemy1 = this.add.sprite(400, 50, 'reaper1')
+        .setScale(.30)
+        .play('reap');
+
+
+    }
+ 
 }
 
+//Configuration
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
