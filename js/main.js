@@ -24,7 +24,7 @@ class Example extends Phaser.Scene
         }
 
         //Loops through and loads 3 different pngs from animations dir to create reaper animation
-        for (let i = 1; i < 3; i++) {
+        for (let i = 1; i < 5; i++) {
             this.load.image(`reaper${i}`, `reaper${i}.png`);
         }
 
@@ -81,9 +81,10 @@ class Example extends Phaser.Scene
         frames: [
             { key: 'reaper1' },
             { key: 'reaper2' },
-            { key: 'reaper3', duration: 50 }
+            { key: 'reaper3' },
+            { key: 'reaper4', duration: 50 }
       ],
-      frameRate: 10,
+      frameRate: 5,
       repeat: -1
         });
 
@@ -93,8 +94,8 @@ class Example extends Phaser.Scene
         .play('fly');
 
         //adds Reaper to scene, sets the size, and applies the reap animation
-        let enemy1 = this.add.sprite(400, 50, 'reaper1')
-        .setScale(.30)
+        let enemy1 = this.add.sprite(400, 500, 'reaper1')
+        .setScale(.40)
         .play('reap');
 
 
