@@ -136,7 +136,7 @@ class NoR extends Phaser.Scene
             { key: 'orb19' },
             { key: 'orb20', duration: 50 }
         ],
-        frameRate: 25,
+        frameRate: 40,
         repeat: -1
     });
 
@@ -162,9 +162,15 @@ class NoR extends Phaser.Scene
         //Puts Reaper at an angle to face player
         //this.reaper.angle = 40;
 
-        //!ORB - add
-        //adds Raven to scene, sets size, and applies the fly animation
-        this.player = this.add.sprite(300, 50, 'orb1')
+        //!ORB1 - add
+        //adds orb1 to scene, sets size, and applies the fly animation
+        this.orb1 = this.add.sprite(400, 300, 'orb1')
+        .setScale(1.5)
+        .play('energy');
+
+        //!ORB2 - add
+        //adds orb2 to scene, sets size, and applies the fly animation
+        this.orb2 = this.add.sprite(400, 300, 'orb2')
         .setScale(1)
         .play('energy');
 
@@ -174,12 +180,11 @@ class NoR extends Phaser.Scene
         //Makes Reaper slowly creep toward left side of screen
         //this.reaper.x += -(0.4);
 
-        //TODO: Make Reaper glide back and forth across screen within the confines of the scene.
-
+        //!REAPER - AI
         //if reaper is flipped on x axis and it's x coord is greater than 8...
-        if (this.reaper.flipX === true && this.reaper.x > 8) {
+        {if (this.reaper.flipX === true && this.reaper.x > 8) {
             //increment reaper down the x axis (toward origin) by 0.4
-            this.reaper.x += -(0.4);
+            this.reaper.x += -(0.5);
         //if reaper's x coord is less than or equal to 8 and it's flipped on the x axis
         } else if (this.reaper.x <= 8 && this.reaper.flipX === true){
             //flip the reaper away from origin on x axis
@@ -187,14 +192,30 @@ class NoR extends Phaser.Scene
         //if reaper is facing away from origin (not flipped) and repear's x coord is less than 750
         } else if (this.reaper.flipX === false && this.reaper.x < 750){
             //increment reaper up the x axis by 0.4
-            this.reaper.x += 0.4;
+            this.reaper.x += 0.5;
         //if reaper is not flipped and is greater than or equal to 750 on the x axis
         } else if (this.reaper.flipX === false && this.reaper.x >= 750) {
             //flip reaper to origin on the x axis
             this.reaper.flipX = true;
-        }
-
+        }}
+        
         //console.log(this.reaper.x);
+
+        //!ORB1 & ORB2 - sets position
+        //moves orb1 along the x & y axis with the reaper
+        this.orb1.x = this.reaper.x;
+        this.orb1.y = this.reaper.y;
+
+        //moves orb2 along the x & y axis with the reaper
+        this.orb2.x = this.reaper.x;
+        this.orb2.y = this.reaper.y;
+
+        //!ORB1 & ORB2 - rotation math
+        {Phaser.Math.RotateAroundDistance(this.orb1, this.reaper.x, this.reaper.y, angle1, distance1);
+        Phaser.Math.RotateAroundDistance(this.orb2, this.orb1.x, this.orb1.y, angle2, distance2);
+
+        angle1 = Phaser.Math.Angle.Wrap(angle1 + 0.03);
+        angle2 = Phaser.Math.Angle.Wrap(angle2 + 0.03);}
 
         //TODO: Create controller for Raven
     }
@@ -211,3 +232,10 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+
+//defining variables for orb rotation
+let angle1 = 0;
+let distance1 = 130;
+
+let angle2 = 0;
+let distance2 = 40;
