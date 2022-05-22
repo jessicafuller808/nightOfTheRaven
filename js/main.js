@@ -105,7 +105,7 @@ class Example extends Phaser.Scene
         .play('fly');
 
         //adds Reaper to scene and sets position.
-        this.reaper = this.add.sprite(600, 400, 'reaper1');
+        this.reaper = this.add.sprite(600, 500, 'reaper1');
 
         //Flips Reaper's axis to face left side of screen
         this.reaper.flipX = true;
@@ -117,12 +117,28 @@ class Example extends Phaser.Scene
         this.reaper.play('reapIdle');
 
         //Puts Reaper at an angle to face player
-        this.reaper.angle = 40;
+        //this.reaper.angle = 40;
     }
 
     update() {
         //Makes Reaper slowly creep toward left side of screen
-        this.reaper.x += -(0.1);
+        //this.reaper.x += -(0.4);
+
+        //TODO: Make Reaper glide back and forth across screen within the confines of the scene.
+
+        if (this.reaper.flipX === true && this.reaper.x > 8) {
+            this.reaper.x += -(0.4);
+        } else if (this.reaper.x <= 8 && this.reaper.flipX === true){
+            this.reaper.flipX = false;
+        } else if (this.reaper.flipX === false && this.reaper.x < 750){
+            this.reaper.x += 0.4;
+        } else if (this.reaper.flipX === false && this.reaper.x >= 750) {
+            this.reaper.flipX = true;
+        }
+
+        console.log(this.reaper.x);
+
+        //TODO: Create controller for Raven
     }
  
 }
