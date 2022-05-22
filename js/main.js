@@ -1,4 +1,4 @@
-class Example extends Phaser.Scene
+class NoR extends Phaser.Scene
 {
     constructor ()
     {
@@ -157,7 +157,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [ Example ]
+    scene: [ NoR ]
 };
 
 const game = new Phaser.Game(config);
