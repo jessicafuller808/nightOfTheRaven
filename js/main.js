@@ -166,12 +166,15 @@ class NoR extends Phaser.Scene
         //adds orb1 to scene, sets size, and applies the fly animation
         this.orb1 = this.add.sprite(400, 300, 'orb1')
         .setScale(1.5)
+        //(0x in front of the rest of the hex decimal for color displays it properly)
+        .setTint('0xff0000')
         .play('energy');
 
         //!ORB2 - add
         //adds orb2 to scene, sets size, and applies the fly animation
         this.orb2 = this.add.sprite(400, 300, 'orb2')
         .setScale(1)
+        .setTint('0xff0000')
         .play('energy');
 
     }
