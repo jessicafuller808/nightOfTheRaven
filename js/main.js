@@ -18,14 +18,22 @@ class NoR extends Phaser.Scene
         //sets loading path for animation files
         this.load.path = '../assets/animations/';
 
+        //!RAVEN - load img
         //loops through and loads 24 different pngs from animations dir to create raven animation
         for (let i = 1; i < 25; i++) {
             this.load.image(`raven${i}`, `raven${i}.png`);
         }
 
+        //!REAPER - load img
         //Loops through and loads 3 different pngs from animations dir to create reaper animation
         for (let i = 1; i < 5; i++) {
             this.load.image(`reaper${i}`, `reaper${i}.png`);
+        }
+
+        //!ORB - Load img
+        //loops through and loads 20 different pngs from animations dir to create orb animation
+        for (let i = 1; i < 21; i++) {
+            this.load.image(`orb${i}`, `ball${i}.png`);
         }
 
 
@@ -42,6 +50,7 @@ class NoR extends Phaser.Scene
       this.backgroundMusic.loop = true;
       this.backgroundMusic.play();
 
+      //!RAVEN animation
       //creates raven flight animation
       this.anims.create({
           key: 'fly',
@@ -75,6 +84,7 @@ class NoR extends Phaser.Scene
           repeat: -1
       });
 
+      //!REAPER animation (attack)
       //creates reaper attack animation
       this.anims.create({
         key: 'reapAttack',
@@ -88,6 +98,7 @@ class NoR extends Phaser.Scene
       repeat: -1
         });
 
+        //!REAPER animation (idle)
         //creates reaper idle animation
       this.anims.create({
         key: 'reapIdle',
@@ -99,11 +110,43 @@ class NoR extends Phaser.Scene
       repeat: -1
         });
 
+        //!ORB animation
+      //creates orb electric animation
+      this.anims.create({
+        key: 'energy',
+        frames: [
+            { key: 'orb1' },
+            { key: 'orb2' },
+            { key: 'orb3' },
+            { key: 'orb4' },
+            { key: 'orb5' },
+            { key: 'orb6' },
+            { key: 'orb7' },
+            { key: 'orb8' },
+            { key: 'orb9' },
+            { key: 'orb10' },
+            { key: 'orb11' },
+            { key: 'orb12' },
+            { key: 'orb13' },
+            { key: 'orb14' },
+            { key: 'orb15' },
+            { key: 'orb16' },
+            { key: 'orb17' },
+            { key: 'orb18' },
+            { key: 'orb19' },
+            { key: 'orb20', duration: 50 }
+        ],
+        frameRate: 25,
+        repeat: -1
+    });
+
+        //!RAVEN - add
         //adds Raven to scene, sets size, and applies the fly animation
         this.player = this.add.sprite(100, 50, 'raven1')
         .setScale(.15)
         .play('fly');
 
+        //!REAPER - add
         //adds Reaper to scene and sets position.
         this.reaper = this.add.sprite(600, 500, 'reaper1');
 
@@ -118,6 +161,13 @@ class NoR extends Phaser.Scene
 
         //Puts Reaper at an angle to face player
         //this.reaper.angle = 40;
+
+        //!ORB - add
+        //adds Raven to scene, sets size, and applies the fly animation
+        this.player = this.add.sprite(300, 50, 'orb1')
+        .setScale(1)
+        .play('energy');
+
     }
 
     update() {
@@ -144,7 +194,7 @@ class NoR extends Phaser.Scene
             this.reaper.flipX = true;
         }
 
-        console.log(this.reaper.x);
+        //console.log(this.reaper.x);
 
         //TODO: Create controller for Raven
     }
