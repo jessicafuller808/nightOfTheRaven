@@ -126,13 +126,21 @@ class Example extends Phaser.Scene
 
         //TODO: Make Reaper glide back and forth across screen within the confines of the scene.
 
+        //if reaper is flipped on x axis and it's x coord is greater than 8...
         if (this.reaper.flipX === true && this.reaper.x > 8) {
+            //increment reaper down the x axis (toward origin) by 0.4
             this.reaper.x += -(0.4);
+        //if reaper's x coord is less than or equal to 8 and it's flipped on the x axis
         } else if (this.reaper.x <= 8 && this.reaper.flipX === true){
+            //flip the reaper away from origin on x axis
             this.reaper.flipX = false;
+        //if reaper is facing away from origin (not flipped) and repear's x coord is less than 750
         } else if (this.reaper.flipX === false && this.reaper.x < 750){
+            //increment reaper up the x axis by 0.4
             this.reaper.x += 0.4;
+        //if reaper is not flipped and is greater than or equal to 750 on the x axis
         } else if (this.reaper.flipX === false && this.reaper.x >= 750) {
+            //flip reaper to origin on the x axis
             this.reaper.flipX = true;
         }
 
